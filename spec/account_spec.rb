@@ -1,11 +1,11 @@
 require 'account'
 
-RSpec.describe "Account" do
-  it "initializes" do
+RSpec.describe 'Account' do
+  it 'initializes' do
     account = Account.new
     expect(account).to be_instance_of(Account)
   end
-  it "prints the correct formatting and values when showing a deposit statement" do
+  it 'prints the correct formatting and values when showing a deposit statement' do
     io_dbl = double :io
     account = Account.new(io_dbl)
 
@@ -13,7 +13,7 @@ RSpec.describe "Account" do
     account.deposit(1000)
     account.statement
   end
-  it "prints the correct formatting and values when showing a withdrawal statement" do
+  it 'prints the correct formatting and values when showing a withdrawal statement' do
     io_dbl = double :io
     account = Account.new(io_dbl)
 
