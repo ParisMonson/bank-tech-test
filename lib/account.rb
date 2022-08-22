@@ -29,7 +29,7 @@ class Account
     @transactions.push(record)
   end
 
-  def show_statement
+  def statement
     result_string = "date || credit || debit || balance\n"
     @transactions.reverse.each { |record|
       result_string << record[:date] + " || "
