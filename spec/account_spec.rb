@@ -39,4 +39,20 @@ RSpec.describe 'Account' do
     account.withdraw(1000)
     account.statement
   end
+  it 'prints the correct formatting and values when showing a deposit statement with float' do
+    io_dbl = double :io
+    time_object_dbl = double :time
+    allow(time_object_dbl).to receive(:day).and_return(22)
+    allow(time_object_dbl).to receive(:month).and_return(8)
+    allow(time_object_dbl).to receive(:year).and_return(2022)
+
+    time_dbl = double "Time"
+    allow(time_dbl).to receive(:new).and_return(time_object_dbl)
+
+    account = Account.new(io_dbl, time_dbl)
+
+    expect(io_dbl).to receive(:puts).with("date || credit || debit || balance\n22/8/2022 || 1000.0 ||  || 1000.0\n")
+    account.deposit(1000.00)
+    account.statement
+  end
 end
