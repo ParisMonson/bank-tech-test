@@ -1,12 +1,13 @@
 class Account
-  def initialize(io = Kernel)
+  def initialize(io = Kernel, time = Time)
     @transactions = []
     @balance = 0.0
     @io = io
+    @time = time
   end
 
   def deposit(amount)
-    time = Time.new
+    time = @time.new
     record = {
       date: "#{time.day}/#{time.month}/#{time.year}",
       credit: amount.to_f.to_s,
@@ -18,7 +19,7 @@ class Account
   end
 
   def withdraw(amount)
-    time = Time.new
+    time = @time.new
     record = {
       date: "#{time.day}/#{time.month}/#{time.year}",
       credit: '',
