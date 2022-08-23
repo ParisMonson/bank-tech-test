@@ -20,7 +20,7 @@ The 'statement' methods jobs was to print the records from the transaction array
 # Setup:
 
 First fork and clone this repository to your local machine.
-Then run the following commands from with the project home directory to install the require dependancies:
+Then run the following commands from within the project home directory to install the require dependancies:
 
 ```bash
 bundle install
