@@ -5,54 +5,56 @@ RSpec.describe 'Account' do
     account = Account.new
     expect(account).to be_instance_of(Account)
   end
-  it 'prints the correct formatting and values when showing a deposit statement' do
-    io_dbl = double :io
-    time_object_dbl = double :time
-    allow(time_object_dbl).to receive(:day).and_return(22)
-    allow(time_object_dbl).to receive(:month).and_return(8)
-    allow(time_object_dbl).to receive(:year).and_return(2022)
 
+  # Deposit Record
+  it 'returns a deposit record with the correct values' do
+    time_object_dbl = double :time
     time_dbl = double "Time"
     allow(time_dbl).to receive(:new).and_return(time_object_dbl)
 
-    account = Account.new(io_dbl, time_dbl)
-
-    expect(io_dbl).to receive(:puts).with("date || credit || debit || balance\n22/8/2022 || 1000.0 ||  || 1000.0\n")
+    account = Account.new(time_dbl)
     account.deposit(1000)
-    account.statement
+
+    transactions = account.transactions
+    expect(transactions[0][:date]).to eq(time_object_dbl)
+    expect(transactions[0][:credit]).to eq(1000.0)
+    expect(transactions[0][:debit]).to eq(0.0)
+    expect(transactions[0][:balance]).to eq(1000.0)
   end
-  it 'prints the correct formatting and values when showing a withdrawal statement' do
-    io_dbl = double :io
+  it 'returns a deposit record with the correct value when a float is given' do
     time_object_dbl = double :time
-
-    allow(time_object_dbl).to receive(:day).and_return(24)
-    allow(time_object_dbl).to receive(:month).and_return(9)
-    allow(time_object_dbl).to receive(:year).and_return(2022)
-
     time_dbl = double "Time"
     allow(time_dbl).to receive(:new).and_return(time_object_dbl)
 
-    expect(io_dbl).to receive(:puts).with("date || credit || debit || balance\n24/9/2022 ||  || 1000.0 || 0.0\n24/9/2022 || 1000.0 ||  || 1000.0\n")
+    account = Account.new(time_dbl)
+    account.deposit(1000.00)
+    transactions = account.transactions
 
-    account = Account.new(io_dbl, time_dbl)
+    expect(transactions[0][:date]).to eq(time_object_dbl)
+    expect(transactions[0][:credit]).to eq(1000.0)
+    expect(transactions[0][:debit]).to eq(0.0)
+    expect(transactions[0][:balance]).to eq(1000.0)
+  end
+
+  # Withdrawal Record
+  it 'returns deposit and withdrawal records with the correct values' do
+    time_object_dbl = double :time
+    time_dbl = double "Time"
+    allow(time_dbl).to receive(:new).and_return(time_object_dbl)
+
+    account = Account.new(time_dbl)
     account.deposit(1000)
     account.withdraw(1000)
-    account.statement
-  end
-  it 'prints the correct formatting and values when showing a deposit statement with float' do
-    io_dbl = double :io
-    time_object_dbl = double :time
-    allow(time_object_dbl).to receive(:day).and_return(22)
-    allow(time_object_dbl).to receive(:month).and_return(8)
-    allow(time_object_dbl).to receive(:year).and_return(2022)
+    transactions = account.transactions
 
-    time_dbl = double "Time"
-    allow(time_dbl).to receive(:new).and_return(time_object_dbl)
+    expect(transactions[0][:date]).to eq(time_object_dbl)
+    expect(transactions[0][:credit]).to eq(1000.0)
+    expect(transactions[0][:debit]).to eq(0.0)
+    expect(transactions[0][:balance]).to eq(1000.0)
 
-    account = Account.new(io_dbl, time_dbl)
-
-    expect(io_dbl).to receive(:puts).with("date || credit || debit || balance\n22/8/2022 || 1000.0 ||  || 1000.0\n")
-    account.deposit(1000.00)
-    account.statement
+    expect(transactions[1][:date]).to eq(time_object_dbl)
+    expect(transactions[1][:credit]).to eq(0.0)
+    expect(transactions[1][:debit]).to eq(1000.0)
+    expect(transactions[1][:balance]).to eq(0.0)
   end
 end
