@@ -34,6 +34,17 @@ RSpec.describe 'Account' do
     expect(transactions[0][:balance]).to eq(1000.0)
   end
 
+  it 'throws Error when deposit value is negative' do
+    time_object_dbl = double :time
+    time_dbl = double "Time"
+    allow(time_dbl).to receive(:new).and_return(time_object_dbl)
+
+    account = Account.new(time_dbl)
+
+    expect { account.deposit(-1) }.to raise_error("Must be positive number")
+
+  end
+
   # Withdrawal Record
   it 'returns deposit and withdrawal records with the correct values' do
     time_object_dbl = double :time

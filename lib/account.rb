@@ -6,26 +6,30 @@ class Account
   end
 
   def deposit(amount)
-    record = {}
-    record[:date] = @time.new
-    record[:credit] = amount
-    record[:balance] = (@balance + amount).to_f
-    
-    @balance += amount
-    @transactions.push(record)
+    raise "Must be positive number" unless amount >= 0
+    perform_transaction(amount)
   end
 
   def withdraw(amount)
-    record = {}
-    record[:date] = @time.new
-    record[:debit] = amount
-    record[:balance] = (@balance - amount).to_f
-  
-    @balance -= amount
-    @transactions.push(record)
+    perform_transaction(-amount)
   end
 
   def transactions
     @transactions
+  end
+
+  private
+
+  def perform_transaction(amount)
+    record = {}
+    record[:date] = @time.new
+    if amount > 0
+      record[:credit] = amount
+    else
+      record[:debit] = -amount
+    end
+    @balance += amount
+    record[:balance] = @balance.to_f
+    @transactions.push(record)
   end
 end
