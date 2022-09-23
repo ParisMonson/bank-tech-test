@@ -7,9 +7,18 @@ class Statement
         formatted_string = "date || credit || debit || balance\n"
         @transactions.reverse.each do |record|
             formatted_string << "#{record[:date].day}/#{record[:date].month}/#{record[:date].year} || "
-            formatted_string << "#{record[:credit]} || "
-            formatted_string << "#{record[:debit]} || "
-            formatted_string << "#{record[:balance]}\n"
+
+            if record[:credit].nil?
+                formatted_string << " || "
+            else
+                formatted_string << "%0.2f || " % [record[:credit]]
+            end
+            if record[:debit].nil?
+                formatted_string <<  " || "
+            else
+                formatted_string << "%0.2f || " % [record[:debit]]
+            end
+            formatted_string << "%0.2f\n" % [record[:balance]]
         end
         @io.puts(formatted_string)
     end
