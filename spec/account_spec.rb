@@ -18,7 +18,6 @@ RSpec.describe 'Account' do
     transactions = account.transactions
     expect(transactions[0][:date]).to eq(time_object_dbl)
     expect(transactions[0][:credit]).to eq(1000.0)
-    expect(transactions[0][:debit]).to eq(0.0)
     expect(transactions[0][:balance]).to eq(1000.0)
   end
   it 'returns a deposit record with the correct value when a float is given' do
@@ -32,7 +31,6 @@ RSpec.describe 'Account' do
 
     expect(transactions[0][:date]).to eq(time_object_dbl)
     expect(transactions[0][:credit]).to eq(1000.0)
-    expect(transactions[0][:debit]).to eq(0.0)
     expect(transactions[0][:balance]).to eq(1000.0)
   end
 
@@ -49,11 +47,9 @@ RSpec.describe 'Account' do
 
     expect(transactions[0][:date]).to eq(time_object_dbl)
     expect(transactions[0][:credit]).to eq(1000.0)
-    expect(transactions[0][:debit]).to eq(0.0)
     expect(transactions[0][:balance]).to eq(1000.0)
 
     expect(transactions[1][:date]).to eq(time_object_dbl)
-    expect(transactions[1][:credit]).to eq(0.0)
     expect(transactions[1][:debit]).to eq(1000.0)
     expect(transactions[1][:balance]).to eq(0.0)
   end

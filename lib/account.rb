@@ -6,29 +6,26 @@ class Account
   end
 
   def deposit(amount)
-    record = {
-      date: @time.new,
-      credit: amount.to_f,
-      debit: 0.0,
-      balance: (@balance + amount).to_f
-    }
+    record = {}
+    record[:date] = @time.new
+    record[:credit] = amount
+    record[:balance] = (@balance + amount).to_f
+    
     @balance += amount
     @transactions.push(record)
   end
 
   def withdraw(amount)
-    @time.new
-    record = {
-      date: @time.new,
-      credit: 0.0,
-      debit: amount.to_f,
-      balance: (@balance - amount).to_f
-    }
+    record = {}
+    record[:date] = @time.new
+    record[:debit] = amount
+    record[:balance] = (@balance - amount).to_f
+  
     @balance -= amount
     @transactions.push(record)
   end
 
   def transactions
-    return @transactions
+    @transactions
   end
 end
