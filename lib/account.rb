@@ -6,7 +6,8 @@ class Account
   end
 
   def deposit(amount)
-    raise "Must be positive number" unless amount >= 0
+    raise 'Must be positive number' unless amount >= 0
+
     perform_transaction(amount)
   end
 
@@ -14,9 +15,7 @@ class Account
     perform_transaction(-amount)
   end
 
-  def transactions
-    @transactions
-  end
+  attr_reader :transactions
 
   private
 
