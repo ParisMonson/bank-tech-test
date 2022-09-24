@@ -1,4 +1,5 @@
 # Bank Tech Test
+<img src="https://img.shields.io/badge/Ruby-20232A?style=for-the-badge&logo=ruby&logoColor=red">
 
 ## Requirements
 
