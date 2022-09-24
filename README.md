@@ -32,10 +32,9 @@ date || credit || debit || balance
 
 ## Design:
 
-I decided to use one class called 'Account' to handle deposits, withdrawals and statements. I felt that this was not too much for one class to handle.
+I decided to use two classes, 'Account' to handle deposits and withdrawals, and 'Statement' to format the transactions into the correct string output to print a bank statement. In order to seperate tasks into functions I created an 'Account' class method called 'perform_transaction' which created and saved either a credit or debit transaction. This meant that my withdrawal and deposit methods only job was to call perform_transactions with the correct value.
 
-The 'deposit' and 'withdraw' methods only job was to create a transaction record hash and store it in an array.
-The 'statement' methods jobs was to print the records from the transaction array into an easy to read string format.
+The 'Statement' class included various formatting methods such as 'format_date' & 'format_number' allowing me to further split my code into multiple smaller functions only responsible for one thing.
 
 ## Setup:
 
